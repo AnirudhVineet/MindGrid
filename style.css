@@ -1,0 +1,264 @@
+/* === GLOBAL RESET === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* === VARIABLES === */
+:root {
+  --sb-width: 5rem;
+  --sb-expanded-width: 12.5rem;
+  --primary-color: #4dd0e1;
+  --bg-gradient: linear-gradient(135deg, #c6ffdd 0%, #fbd786 50%, #f7797d 100%);
+  --text-color: #1a1a1a;
+  --bg-circle: #ffffff90;
+  --glass-bg: rgba(255, 255, 255, 0.2);
+}
+
+/* === BODY & SIDEBAR === */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  color: var(--text-color);
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+}
+
+body.sb-expanded {
+  --sb-width: var(--sb-expanded-width);
+}
+
+aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sb-width);
+  height: 100vh;
+  padding: 1rem;
+  background: linear-gradient(to bottom, #000, #111);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease-in-out;
+}
+
+nav {
+  flex: 1;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  height: 100%;
+}
+
+nav li:last-child {
+  margin-top: auto;
+}
+
+nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 0.875rem;
+  font-size: 1.25rem;
+  color: white;
+  border-radius: 0.375rem;
+  transition: 0.2s ease;
+  text-decoration: none;
+}
+
+nav a.active,
+nav a:hover {
+  color: #111;
+  background-color: white;
+}
+
+nav a span {
+  font-size: 0.875rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s ease;
+}
+
+body.sb-expanded nav a span {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* === MAIN === */
+main {
+  margin-left: var(--sb-width);
+  padding: 2rem;
+  flex: 1;
+  transition: margin-left 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* === INFO BOX === */
+.info-box {
+  background: #ffffffcc;
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 20px 30px;
+  margin-bottom: 30px;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.info-box h2 {
+  margin-bottom: 10px;
+  font-size: 1.6rem;
+  color: #333;
+}
+
+.info-box p {
+  font-size: 1rem;
+  color: #444;
+}
+
+/* === TIMER === */
+.timer-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* === TIMER CIRCLE === */
+.circle-container {
+  position: relative;
+  width: 260px;
+  height: 260px;
+}
+
+.progress-ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.progress-ring-bg,
+.progress-ring-circle {
+  fill: none;
+  stroke-width: 15;
+  cx: 130;
+  cy: 130;
+  r: 110;
+}
+
+.progress-ring-bg {
+  stroke: var(--bg-circle);
+}
+
+.progress-ring-circle {
+  stroke: var(--primary-color);
+  stroke-dasharray: 690;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s linear;
+}
+
+.time-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.time {
+  font-size: 3.2rem;
+  font-weight: 600;
+  color: var(--text-color);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* === MODE BUTTONS === */
+.mode-buttons {
+  display: flex;
+  gap: 20px;
+  margin: 1rem 0;
+}
+
+.mode-button {
+  padding: 10px 24px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  background: #ffffffc0;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+
+.mode-button:hover,
+.mode-button.active {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.08);
+}
+
+/* === CONTROL BUTTONS === */
+.control-buttons {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.control-button {
+  padding: 12px 26px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.control-button:hover {
+  background-color: #0097a7;
+  transform: scale(1.05);
+}
+
+/* === VISUAL FLASH ON TIMER END === */
+@keyframes flashBackground {
+  0% { background: #f7797d; }
+  50% { background: #fbd786; }
+  100% { background: #c6ffdd; }
+}
+
+body.flash-bg {
+  animation: flashBackground 0.6s ease-in-out 3;
+}
+
+/* Visual flash when time ends */
+.flash-bg {
+  animation: flash 0.4s alternate 4;
+}
+
+@keyframes flash {
+  0% { background-color: #ffffff; }
+  100% { background-color: #ffeb3b; }
+}

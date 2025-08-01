@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MindGrid - Pomodoro Timer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  </head>
+  <body class="sb-expanded">
+    <aside>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="nav-link" data-page="home"><i class="bx bx-home-circle"></i><span>Home</span></a></li>
+          <li><a href="timer.html" class="nav-link active" data-page="timer"><i class="bx bx-time-five"></i><span>Timer</span></a></li>
+          <li><a href="tasks.html" class="nav-link" data-page="tasks"><i class="bx bx-task"></i><span>Tasks</span></a></li>
+          <li><a href="planner.html" class="nav-link" data-page="planner"><i class="bx bx-calendar"></i><span>Planner</span></a></li>
+        <li><a href="vault.html" class="nav-link active"><i class="bx bx-calendar"></i><span>Notes</span></a></li>
+          <li><a href="#" id="resize-btn"><i class="bx bx-chevrons-left"></i><span>Collapse</span></a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main id="main-content">
+      <section class="timer-wrapper">
+        <h1>⏰ Pomodoro Timer</h1>
+
+        <div class="pomodoro-info">
+          <h2>How to Use the Pomodoro Timer</h2>
+          <ol>
+            <li><strong>Pick a task</strong> you want to focus on.</li>
+            <li>Start the timer – you’ll get <strong>25 minutes</strong> of deep work (a Pomodoro).</li>
+            <li>When the timer ends, take a <strong>5-minute short break</strong>.</li>
+            <li>After every 4 Pomodoros, take a <strong>longer 15-minute break</strong>.</li>
+            <li>Repeat this cycle to stay focused and avoid burnout.</li>
+          </ol>
+        </div>
+
+        <div class="mode-buttons">
+          <button id="pomodoro-btn" class="mode-button">Pomodoro</button>
+          <button id="short-break-btn" class="mode-button">Short Break</button>
+          <button id="long-break-btn" class="mode-button">Long Break</button>
+        </div>
+
+        <div class="circle-container">
+          <svg class="progress-ring" width="220" height="220">
+            <circle class="progress-ring-bg" r="100" cx="110" cy="110" />
+            <circle class="progress-ring-circle" r="100" cx="110" cy="110" />
+          </svg>
+          <div class="time-overlay">
+            <h1 id="time" class="time">25:00</h1>
+          </div>
+        </div>
+
+        <div class="control-buttons">
+          <button id="toggle-btn" class="control-button">Start</button>
+          <button id="reset-btn" class="control-button">Reset</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="pomodoro.js"></script>
+    <!-- Audio element -->
+    <audio id="end-audio" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
+  </body>
+</html>

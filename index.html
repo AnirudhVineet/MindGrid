@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MindGrid - Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="index.css" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+</head>
+<body class="sb-expanded">
+
+  <!-- Sidebar -->
+  <aside>
+    <nav>
+      <ul>
+        <li>
+          <a href="index.html" class="nav-link active" data-page="home">
+            <i class="bx bx-home-circle"></i><span>Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="timer.html" class="nav-link" data-page="timer">
+            <i class="bx bx-time-five"></i><span>Timer</span>
+          </a>
+        </li>
+        <li>
+          <a href="tasks.html" class="nav-link" data-page="tasks">
+            <i class="bx bx-task"></i><span>Tasks</span>
+          </a>
+        </li>
+        <li>
+          <a href="planner.html" class="nav-link" data-page="planner">
+            <i class="bx bx-calendar"></i><span>Planner</span>
+          </a>
+        </li>
+        <li>
+          <a href="vault.html" class="nav-link" data-page="vault">
+            <i class="bx bx-folder-open"></i><span>Notes</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" id="resize-btn">
+            <i class="bx bx-chevrons-left"></i><span>Collapse</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main id="main-content" class="home-hero">
+    <h1>Welcome to <span>MindGrid</span></h1>
+    <p>Your all-in-one student productivity platform</p>
+
+    <div class="home-cards">
+      <a href="timer.html" class="card">
+        <i class="bx bx-time-five"></i>
+        <h3>Pomodoro Timer</h3>
+        <p>Boost your focus with timed sessions.</p>
+      </a>
+      <a href="planner.html" class="card">
+        <i class="bx bx-calendar"></i>
+        <h3>Planner</h3>
+        <p>Organize your week with a responsive timetable.</p>
+      </a>
+      <a href="tasks.html" class="card">
+        <i class="bx bx-task"></i>
+        <h3>Task Manager</h3>
+        <p>Move and manage tasks using drag & drop.</p>
+      </a>
+      <a href="vault.html" class="card">
+        <i class="bx bx-folder-open"></i>
+        <h3>Notes Vault</h3>
+        <p>Store and reference your important study notes.</p>
+      </a>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

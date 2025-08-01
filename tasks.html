@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MindGrid - Tasks</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="tasks.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <style>
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0,0,0,0.4);
+      z-index: 9999;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      width: 300px;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 8px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .modal-content button {
+      margin-right: 8px;
+      padding: 6px 12px;
+    }
+
+    .task {
+      position: relative;
+      padding: 10px 30px 10px 10px;
+      margin: 5px 0;
+      background: #e0ecff;
+      border-radius: 6px;
+      cursor: grab;
+    }
+
+    .task.dragging {
+      opacity: 0.5;
+    }
+
+    .delete-btn {
+      position: absolute;
+      right: 6px;
+      top: 6px;
+      background: transparent;
+      border: none;
+      color: #888;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      color: #e74c3c;
+    }
+
+    .task-list {
+      min-height: 100px;
+      padding: 5px;
+      border: 2px dashed #ccc;
+      border-radius: 6px;
+    }
+
+    .task-list.over {
+      background-color: #f0f8ff;
+    }
+  </style>
+</head>
+<body class="sb-expanded">
+  <aside>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="nav-link"><i class="bx bx-home-circle"></i><span>Home</span></a></li>
+        <li><a href="timer.html" class="nav-link"><i class="bx bx-time-five"></i><span>Timer</span></a></li>
+        <li><a href="tasks.html" class="nav-link active"><i class="bx bx-task"></i><span>Tasks</span></a></li>
+        <li><a href="planner.html" class="nav-link"><i class="bx bx-calendar"></i><span>Planner</span></a></li>
+        <li><a href="vault.html" class="nav-link"><i class="bx bx-folder-open"></i><span>Notes</span></a></li>
+        <li><a href="#" id="resize-btn"><i class="bx bx-chevrons-left"></i><span>Collapse</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="task-board">
+      <div class="task-column" data-column="todo">
+        <h3>To Do</h3>
+        <div class="task-list" id="todo-list"></div>
+        <button onclick="openAddModal('todo')">+ Add Task</button>
+      </div>
+
+      <div class="task-column" data-column="doing">
+        <h3>Doing</h3>
+        <div class="task-list" id="doing-list"></div>
+        <button onclick="openAddModal('doing')">+ Add Task</button>
+      </div>
+
+      <div class="task-column" data-column="done">
+        <h3>Done</h3>
+        <div class="task-list" id="done-list"></div>
+        <button onclick="openAddModal('done')">+ Add Task</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="task-modal">
+    <div class="modal-content">
+      <h3>Add Task</h3>
+      <input type="text" id="task-input" placeholder="Enter task...">
+      <button onclick="confirmAddTask()">Add</button>
+      <button onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+  let currentColumn = '';
+  const modal = document.getElementById("task-modal");
+  const taskInput = document.getElementById("task-input");
+
+  document.getElementById("resize-btn").addEventListener("click", () => {
+    document.body.classList.toggle("sb-expanded");
+  });
+
+  function openAddModal(column) {
+    currentColumn = column;
+    taskInput.value = '';
+    modal.classList.add('active');
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+  }
+
+  function confirmAddTask() {
+    const text = taskInput.value.trim();
+    if (text === '') return;
+
+    const task = createTaskElement(text);
+    document.getElementById(`${currentColumn}-list`).appendChild(task);
+    saveTasks();
+    closeModal();
+  }
+
+  function createTaskElement(text) {
+    const task = document.createElement('div');
+    task.classList.add('task');
+    task.setAttribute('draggable', 'true');
+    task.innerText = text;
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('delete-btn');
+    deleteBtn.innerHTML = '&times;';
+    deleteBtn.onclick = () => {
+      task.remove();
+      saveTasks();
+    };
+
+    task.appendChild(deleteBtn);
+
+    task.addEventListener('dragstart', () => {
+      task.classList.add('dragging');
+    });
+
+    task.addEventListener('dragend', () => {
+      task.classList.remove('dragging');
+      saveTasks();
+    });
+
+    return task;
+  }
+
+  document.querySelectorAll('.task-list').forEach(list => {
+    list.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      list.classList.add('over');
+      const dragging = document.querySelector('.dragging');
+      if (dragging && dragging !== list) {
+        list.appendChild(dragging);
+      }
+    });
+
+    list.addEventListener('dragleave', () => {
+      list.classList.remove('over');
+    });
+
+    list.addEventListener('drop', () => {
+      list.classList.remove('over');
+      saveTasks();
+    });
+  });
+
+  function saveTasks() {
+    const data = {};
+    ['todo', 'doing', 'done'].forEach(col => {
+      const list = document.getElementById(`${col}-list`);
+      data[col] = [];
+      list.querySelectorAll('.task').forEach(task => {
+        data[col].push(task.firstChild.textContent.trim());
+      });
+    });
+    localStorage.setItem('mindgrid-tasks', JSON.stringify(data));
+  }
+
+  function loadTasks() {
+    const data = JSON.parse(localStorage.getItem('mindgrid-tasks'));
+    if (!data) return;
+    ['todo', 'doing', 'done'].forEach(col => {
+      const list = document.getElementById(`${col}-list`);
+      list.innerHTML = '';
+      (data[col] || []).forEach(taskText => {
+        const task = createTaskElement(taskText);
+        list.appendChild(task);
+      });
+    });
+  }
+
+  window.addEventListener('load', loadTasks);
+</script>
+
+</body>
+</html>

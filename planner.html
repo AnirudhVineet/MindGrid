@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MindGrid - Planner</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="planner.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body class="sb-expanded">
+  <aside>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="nav-link"><i class="bx bx-home-circle"></i><span>Home</span></a></li>
+        <li><a href="timer.html" class="nav-link"><i class="bx bx-time-five"></i><span>Timer</span></a></li>
+        <li><a href="tasks.html" class="nav-link"><i class="bx bx-task"></i><span>Tasks</span></a></li>
+        <li><a href="planner.html" class="nav-link"><i class="bx bx-calendar"></i><span>Planner</span></a></li>
+        <li><a href="vault.html" class="nav-link"><i class="bx bx-calendar"></i><span>Notes</span></a></li>
+
+        <li><a href="#" id="resize-btn"><i class="bx bx-chevrons-left"></i><span>Collapse</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main id="main-content">
+    <div class="timetable-wrapper">
+      <table class="timetable">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+            <th>Sun</th>
+          </tr>
+        </thead>
+        <tbody id="timetable-body"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Custom Prompt Modal -->
+  <div id="cell-modal" class="modal hidden">
+    <div class="modal-content">
+      <p id="modal-time-label"></p>
+      <textarea id="modal-input" placeholder="Enter task..."></textarea>
+      <div class="modal-buttons">
+        <button onclick="saveCell()">Add</button>
+        <button onclick="deleteCell()">Delete</button>
+        <button onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="planner.js"></script>
+  <script>
+    document.getElementById("resize-btn").addEventListener("click", () => {
+      document.body.classList.toggle("sb-expanded");
+    });
+      // Auto-highlight active nav link based on current page
+  const navLinks = document.querySelectorAll(".nav-link");
+  const currentPage = location.pathname.split("/").pop();
+
+  navLinks.forEach(link => {
+    const href = link.getAttribute("href");
+    if (href === currentPage) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+  </script>
+</body>
+</html>

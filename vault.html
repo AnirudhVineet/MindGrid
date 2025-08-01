@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MindGrid - Vault</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vault.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body class="sb-expanded">
+
+  <!-- Sidebar -->
+  <aside>
+    <nav>
+      <ul>
+        <li>
+          <a href="index.html" class="nav-link" data-page="home">
+            <i class="bx bx-home-circle"></i><span>Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="timer.html" class="nav-link" data-page="timer">
+            <i class="bx bx-time-five"></i><span>Timer</span>
+          </a>
+        </li>
+        <li>
+          <a href="tasks.html" class="nav-link" data-page="tasks">
+            <i class="bx bx-task"></i><span>Tasks</span>
+          </a>
+        </li>
+        <li>
+          <a href="planner.html" class="nav-link" data-page="planner">
+            <i class="bx bx-calendar"></i><span>Planner</span>
+          </a>
+        </li>
+        <li>
+          <a href="vault.html" class="nav-link active" data-page="vault">
+            <i class="bx bx-folder-open"></i><span>Notes</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" id="resize-btn">
+            <i class="bx bx-chevrons-left"></i><span>Collapse</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    <div class="vault-container">
+      <h2>Your Personal Vault</h2>
+
+      <!-- Note Upload Form -->
+      <form id="note-form">
+        <input type="file" id="note-file" accept=".pdf,image/*">
+        <input type="text" id="note-title" placeholder="Title" required>
+        <input type="text" id="note-subject" placeholder="Subject / Tag" required>
+        <textarea id="note-content" placeholder="Write your formula or notes here..." rows="5" required></textarea>
+        <button type="submit">Add Note</button>
+      </form>
+
+      <!-- Notes List -->
+      <div id="notes-list"></div>
+    </div>
+
+    <!-- Modal for Images -->
+    <div id="image-modal" class="hidden">
+      <span id="modal-close">&times;</span>
+      <img id="modal-img" alt="Preview">
+    </div>
+  </main>
+
+  <script src="vault.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
